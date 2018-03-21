@@ -1,8 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 
 app = Flask(__name__)
 
-counts=0
+counts = {"get":0, "post":0, "put":0, "delete":0}
 
 @app.route('/')
 def index():
@@ -10,6 +10,10 @@ def index():
 
 @app.route('/add')
 def add():
-    return render_template('index.html')
     global counts
     counts += 1
+    return redirect('/')
+
+if __name__ == '__main__':
+    app.secret_key = "topsecret"
+    app.run(debug=True, host='0.0.0.0', port=5000)
